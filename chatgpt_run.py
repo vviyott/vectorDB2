@@ -13,6 +13,9 @@ from datetime import datetime
 from openai import OpenAI  # 최신 OpenAI 패키지 임포트 방식으로 변경
 import os
 
+model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
+model.save('./local_model')  # 현재 폴더에 local_model 폴더로 저장
+
 # 페이지 설정
 st.set_page_config(page_title="광진구 착한가게 소개 챗봇", page_icon="🏪")
 
@@ -36,7 +39,7 @@ st.write("광진구의 다양한 착한가게에 대한 정보를 물어보세�
 # 임베딩 모델 설정 (세션 상태에 저장하여 재로딩 방지)
 @st.cache_resource
 def load_embedding_model():
-    return SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')  # 다국어 지원 모델 사용
+    return SentenceTransformer('./local_model')  # 다국어 지원 모델 사용
 
 embedding_model = load_embedding_model()
 
